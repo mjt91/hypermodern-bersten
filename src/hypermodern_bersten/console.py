@@ -14,8 +14,11 @@ API_URL = "https://en.wikipedia.org/api/rest_v1/page/random/summary"
 def main():
     """The Hypermodern Bersten Python project."""
     with requests.get(API_URL) as response:
-        response.raise_for_status()
-        data = response.json()
+        try:
+            response.raise_for_status()
+            data = response.json()
+        except requests.exceptions.RequestException as e:
+            raise SystemExit(e)
 
     title = data["title"]
     extract = data["extract"]
