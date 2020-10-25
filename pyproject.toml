@@ -3,6 +3,11 @@ name = "hypermodern-bersten"
 version = "0.1.0"
 description = "The Hypermodern Python Tutorial"
 authors = ["justusbersten <justusbersten@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/mjt91/hypermodern-bersten"
+repository = "https://github.com/mjt91/hypermodern-bersten"
+keywords = ["hypermodern"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -12,8 +17,3 @@ python = "^3.8"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-license = "MIT"
-readme = "README.md"
-homepage = "https://github.com/mjt91/hypermodern-bersten"
-repository = "https://github.com/mjt91/hypermodern-bersten"
-keywords = ["hypermodern"]
