@@ -1,0 +1,4 @@
+/.coverage
+/.nox/
+/.python-version
+__pycache__/
