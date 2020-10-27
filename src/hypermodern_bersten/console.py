@@ -7,11 +7,18 @@ from . import __version__, wikipedia
 
 
 @click.command()
+@click.option(
+    "-l",
+    "--language",
+    default="en",
+    help="Language edition of Wikipedia",
+    metavar="LANG",
+    show_default=True
+)
 @click.version_option(version=__version__)
-@click.option("-l", "--language", default="en")
 def main(language):
     """The Hypermodern Bersten Python project."""
-    data = wikipedia.random_page(language)
+    data = wikipedia.random_page(language=language)
 
     title = data["title"]
     extract = data["extract"]
