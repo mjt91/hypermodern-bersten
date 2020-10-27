@@ -36,10 +36,15 @@ def test_main_invokes_requests_get(runner, mock_requests_get):
 
 
 def test_main_uses_en_wikipedia_org(runner, mock_requests_get):
-    # runner.invoke(console.main, ["-l", "de"])
     runner.invoke(console.main)
     args, _ = mock_requests_get.call_args
     assert "en.wikipedia.org" in args[0]
+
+
+def test_main_uses_custom_wikipedia_org(runner, mock_requests_get):
+    runner.invoke(console.main, ["-l", "de"])
+    args, _ = mock_requests_get.call_args
+    assert "de" + ".wikipedia.org" in args[0]
 
 
 def test_main_fails_on_request_error(runner, mock_requests_get):
