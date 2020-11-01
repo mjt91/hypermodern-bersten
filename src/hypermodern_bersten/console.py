@@ -13,7 +13,7 @@ from . import __version__, wikipedia
     default="en",
     help="Language edition of Wikipedia",
     metavar="LANG",
-    show_default=True
+    show_default=True,
 )
 @click.version_option(version=__version__)
 def main(language):
