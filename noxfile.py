@@ -3,6 +3,8 @@ import tempfile
 
 import nox
 
+package = "hypermodern_bersten"
+
 nox.options.sessions = "lint", "mypy", "pytype", "tests"
 
 locations = "src", "tests", "noxfile.py"
@@ -39,7 +41,7 @@ def black(session):
     session.run("black", *args)
 
 
-@nox.session(python=["3.8"])
+@nox.session(python="3.9")
 def safety(session):
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
@@ -75,9 +77,17 @@ def mypy(session):
     session.run("mypy", *args)
 
 
-@nox.session(python=["3.8"])
+@nox.session(python="3.8")
 def pytype(session):
     """Run the static type checker."""
     args = session.posargs or ["--disable=import-error", *locations]
     install_with_constraints(session, "pytype")
     session.run("pytype", *args)
+
+
+@nox.session(python=["3.9", "3.8"])
+def typeguard(session):
+    args = session.posargs or ["-m", "not e2e"]
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(session, "pytest", "pytest-mock", "typeguard")
+    session.run("pytest", f"--typeguard-packages={package}", *args)
