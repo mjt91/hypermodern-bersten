@@ -16,7 +16,7 @@ from . import __version__, wikipedia
     show_default=True,
 )
 @click.version_option(version=__version__)
-def main(language) -> None:
+def main(language: str) -> None:
     """The Hypermodern Bersten Python project."""
     page = wikipedia.random_page(language=language)
 
