@@ -1,9 +1,8 @@
 # tests/test_console.py
 import click.testing
+from hypermodern_bersten import console
 import pytest
 import requests
-
-from hypermodern_bersten import console
 
 
 @pytest.fixture

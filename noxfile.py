@@ -1,6 +1,7 @@
 # noxfile.py
-import nox
 import tempfile
+
+import nox
 
 nox.options.sessions = "lint", "safety", "tests"
 
