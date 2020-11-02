@@ -1,27 +1,37 @@
 # noxfile.py
 import tempfile
+from typing import Any
 
 import nox
+from nox.sessions import Session
 
 package = "hypermodern_bersten"
-
 nox.options.sessions = "lint", "mypy", "pytype", "tests"
-
 locations = "src", "tests", "noxfile.py"
 
 
-@nox.session(python=["3.9", "3.8"])
-def tests(session):
-    args = session.posargs or ["--cov", "-m", "not e2e"]  # noqa: F841
-    session.run("poetry", "install", "--no-dev", external=True)
-    install_with_constraints(
-        session, "coverage[toml]", "pytest", "pytest-cov", "pytest-mock"
-    )
-    session.run("pytest", "--cov")
+def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
+    with tempfile.NamedTemporaryFile() as requirements:
+        session.run(
+            "poetry",
+            "export",
+            "--dev",
+            "--format=requirements.txt",
+            f"--output={requirements.name}",
+            external=True,
+        )
+        session.install(f"--constraint={requirements.name}", *args, **kwargs)
 
 
 @nox.session(python=["3.9", "3.8"])
-def lint(session):
+def black(session: Session) -> None:
+    args = session.posargs or locations
+    install_with_constraints(session, "black")
+    session.run("black", *args)
+
+
+@nox.session(python=["3.9", "3.8"])
+def lint(session: Session) -> None:
     args = session.posargs or locations
     install_with_constraints(
         session,
@@ -35,15 +45,8 @@ def lint(session):
     session.run("flake8", *args)
 
 
-@nox.session(python=["3.9", "3.8"])
-def black(session):
-    args = session.posargs or locations
-    install_with_constraints(session, "black")
-    session.run("black", *args)
-
-
 @nox.session(python="3.9")
-def safety(session):
+def safety(session: Session) -> None:
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
             "poetry",
@@ -58,28 +61,15 @@ def safety(session):
         session.run("safety", "check", f"--file={requirements.name}", "--full-report")
 
 
-def install_with_constraints(session, *args, **kwargs):
-    with tempfile.NamedTemporaryFile() as requirements:
-        session.run(
-            "poetry",
-            "export",
-            "--dev",
-            "--format=requirements.txt",
-            f"--output={requirements.name}",
-            external=True,
-        )
-        session.install(f"--constraint={requirements.name}", *args, **kwargs)
-
-
 @nox.session(python=["3.9", "3.8"])
-def mypy(session):
+def mypy(session: Session) -> None:
     args = session.posargs or locations
     install_with_constraints(session, "mypy")
     session.run("mypy", *args)
 
 
 @nox.session(python="3.8")
-def pytype(session):
+def pytype(session: Session) -> None:
     """Run the static type checker."""
     args = session.posargs or ["--disable=import-error", *locations]
     install_with_constraints(session, "pytype")
@@ -87,7 +77,17 @@ def pytype(session):
 
 
 @nox.session(python=["3.9", "3.8"])
-def typeguard(session):
+def tests(session: Session) -> None:
+    args = session.posargs or ["--cov", "-m", "not e2e"]  # noqa: F841
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(
+        session, "coverage[toml]", "pytest", "pytest-cov", "pytest-mock"
+    )
+    session.run("pytest", "--cov")
+
+
+@nox.session(python=["3.9", "3.8"])
+def typeguard(session: Session) -> None:
     args = session.posargs or ["-m", "not e2e"]
     session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints(session, "pytest", "pytest-mock", "typeguard")
