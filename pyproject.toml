@@ -34,6 +34,7 @@ typeguard = "^2.10.0"
 flake8-annotations = "^2.4.1"
 flake8-docstrings = "^1.5.0"
 darglint = "^1.5.5"
+xdoctest = "^0.15.0"
 
 [tool.poetry.scripts]
 hypermodern-bersten = "hypermodern_bersten.console:main"
