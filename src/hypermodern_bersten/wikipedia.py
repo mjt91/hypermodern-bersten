@@ -31,21 +31,15 @@ def random_page(language: str = "en") -> Page:
     Performs a GET request to the /page/random/summary endpoint.
 
     Args:
-        language: The Wikipedia language edition. By default, the English
-            Wikipedia is used ("en").
-
-    Returns:
-        A page resource.
+        language (str): The Wikipedia language. Defaults to the
+            English Wikipadia ("en").
 
     Raises:
         ClickException: The HTTP request failed or the HTTP response
             contained an invalid body.
 
-    Example:
-        >>> from hypermodern_bersten import wikipedia
-        >>> page = wikipedia.random_page(language="en")
-        >>> bool(page.title)
-        True
+    Returns:
+        A page resource.
     """
     url = API_URL.format(language=language)
 
