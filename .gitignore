@@ -2,3 +2,4 @@
 /.nox/
 /.python-version
 __pycache__/
+/.pytype/
