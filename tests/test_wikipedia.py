@@ -6,13 +6,13 @@ from hypermodern_bersten import wikipedia
 import pytest
 
 
-def test_main_uses_custom_wikipedia_org(mock_requests_get):
+def test_main_uses_custom_wikipedia_org(mock_requests_get: Mock) -> None:
     wikipedia.random_page(language="de")
     args, _ = mock_requests_get.call_args
     assert "de.wikipedia.org" in args[0]
 
 
-def test_random_page_returns_page(mock_requests_get):
+def test_random_page_returns_page(mock_requests_get: Mock) -> None:
     page = wikipedia.random_page()
     assert isinstance(page, wikipedia.Page)
 
@@ -23,7 +23,7 @@ def test_random_page_handles_validation_errors(mock_requests_get: Mock) -> None:
         wikipedia.random_page()
 
 
-def test_trigger_typeguard(mock_requests_get):
+def test_trigger_typeguard(mock_requests_get: Mock) -> None:
     import json
 
     data = json.loads('{ "language": 1 }')

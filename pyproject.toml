@@ -31,6 +31,7 @@ flake8-import-order = "^0.18.1"
 mypy = "^0.790"
 pytype = {version = "^2020.10.8", python = "3.8"}
 typeguard = "^2.10.0"
+flake8-annotations = "^2.4.1"
 
 [tool.poetry.scripts]
 hypermodern-bersten = "hypermodern_bersten.console:main"
