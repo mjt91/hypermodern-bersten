@@ -42,3 +42,8 @@ Hypermodern Python's usage looks like:
 .. option:: --help
 
    Display a short usage message and exit.
+
+License
+=======
+
+.. include:: ../LICENSE
