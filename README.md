@@ -6,4 +6,4 @@ Me working through the [Hypermodern Python Series](https://cjolowicz.github.io/p
 [![Tests](https://github.com/mjt91/hypermodern-bersten/workflows/Tests/badge.svg)](https://github.com/mjt91/hypermodern-bersten/actions?workflow=Tests)
 
 
-[![Codecov](https://codecov.io/gh/mjt91/hypermodern-bersten/branch/master/graph/badge.svg)](https://codecov.io/gh/mjt91/hypermodern-bersten)
+[![Codecov](https://codecov.io/gh/mjt91/hypermodern-bersten/branch/main/graph/badge.svg)](https://codecov.io/gh/mjt91/hypermodern-bersten)
